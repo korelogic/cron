@@ -3,7 +3,13 @@
 	Class CronTaskFilterIterator extends FilterIterator{
 	
 		public function __construct($path){
-			parent::__construct(new DirectoryIterator($path));
+
+			if(is_dir($path) == true){
+				parent::__construct(new DirectoryIterator($path));
+			}else{
+				throw new Exception('Directory Missing. Create a manifest/cron directory with 0777 permissions.'); 
+			}
+			
 		}	
 	
 		public function accept(){

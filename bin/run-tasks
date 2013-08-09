@@ -1,5 +1,9 @@
 <?php
 
+	require_once(EXTENSIONS . '/cron/lib/class.crontask.php');	
+	require_once(EXTENSIONS . '/cron/lib/class.crontaskiterator.php');
+	
+
 	Class RunTasks extends ShellCommand{
 		public function run(array $args=NULL){
 			
@@ -13,7 +17,8 @@
 				exit(1);
 			}			
 			
-			$driver = Shell::instance()->ExtensionManager->create('cron');
+			// Make sure the Shell has been initialised
+			Shell::instance();
 			
 			$iterator = new CronTaskIterator(MANIFEST . '/cron');
 
